@@ -13,23 +13,23 @@ export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
   async create(
-    // name: string,
+    name: string,
     email: string,
     password: string,
-    // phone: string,
-    // date_of_birth: Date,
-    // type: string,
+    phone: string,
+    date_of_birth: Date,
+    type: string,
   ) {
-    // let timeDiff = Math.abs(Date.now() - date_of_birth.getTime());
-    // let age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
+    let timeDiff = Math.abs(Date.now() - date_of_birth.getTime());
+    let age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
     const user = this.repo.create({
-      // name,
+      name,
       email,
       password,
-      // phone,
-      // date_of_birth,
-      // age,
-      // type,
+      phone,
+      date_of_birth,
+      age,
+      type,
     });
 
     return this.repo.save(user);
@@ -40,15 +40,14 @@ export class UsersService {
   }
 
   find(
-    // name: string, 
+    name: string, 
     email: string) {
-    // if (name == null && email == null) {
-    //   return this.repo.find();
-    // }
-    return this.repo.find({where: { email }});
+    if (name == null && email == null) {
+      return this.repo.find();
+    }
     return this.repo
       .createQueryBuilder()
-      // .where('name = :name', { name })
+      .where('name = :name', { name })
       .orWhere('email = :email', { email })
       .getRawMany();
   }

@@ -27,25 +27,14 @@ export class UsersController {
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
     this.authService.signup(
-      // body.name,
+      body.name,
       body.email,
       body.password,
-      // body.phone,
-      // body.date_of_birth,
-      // body.type,
+      body.phone,
+      body.date_of_birth,
+      body.type,
     );
   }
-  // @Post('/signup')
-  // createUser(@Body() body: CreateUserDto) {
-  //   this.authService.signup(
-  //     body.name,
-  //     body.email,
-  //     body.password,
-  //     body.phone,
-  //     body.date_of_birth,
-  //     body.type,
-  //   );
-  // }
 
   @Get('/:id')
   async findUser(@Param('id') id: string) {
